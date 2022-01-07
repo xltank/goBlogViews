@@ -1,21 +1,20 @@
 <template>
   <div class="hello">
-    <p>Hello {{ name }}</p>
+    <h1>Homepage</h1>
     <p>
+        this is homepage.
     </p>
-    <p>Hello World</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'Home',
   props: {
     name: String
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>
