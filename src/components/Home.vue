@@ -4,6 +4,7 @@
     <p>
         this is homepage.
     </p>
+      <button @click="$router.push({name: 'login'})">To Login</button>
   </div>
 </template>
 

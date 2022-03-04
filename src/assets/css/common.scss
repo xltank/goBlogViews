@@ -1,14 +1,46 @@
 $fontSize: 16px;
 
-body {
-  font-size: $fontSize;
+@font-face {
+  font-family: Adi_B;
+  src: url("~@fonts/AdihausDIN-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
-div.logo-fff-big {
+@font-face {
+  font-family: Adi_R;
+  src: url("~@fonts/AdihausDIN-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Adi_BI;
+  src: url("~@fonts/AdihausDIN-BoldItalic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.adi_b {font-family: Adi_B, "PingFang SC", Helvetica, Arial, sans-serif;}
+.adi_bi {font-family: Adi_BI, "PingFang SC", Helvetica, Arial, sans-serif;}
+.adi_r {font-family: Adi_R, "PingFang SC", Helvetica, Arial, sans-serif;}
+
+
+* {font-size: $fontSize; margin: 0; padding: 0; border: 0; outline: 0; font-family: Adi_R, "PingFang SC", Helvetica, Arial, sans-serif; }
+
+body {
+  //font-size: $fontSize;
+}
+
+.text-20 {line-height: 20px;}
+
+
+.logo-fff-big {
   width: 150px;
-  height: 150px;
+  height: 110px;
+  margin-bottom: 20px;
   background: url('~@images/logo_fff.svg') no-repeat center;
-  background-size: cover;
+  background-size: auto 150px;
 }
 
 .flex_box {
@@ -27,6 +59,13 @@ div.logo-fff-big {
   -o-flex-wrap: wrap;
   flex-wrap:wrap;
 }
+
+.flex-column {
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
 /*主轴对齐*/
 .flex-justify-center{
   -webkit-box-pack: center;
@@ -41,7 +80,7 @@ div.logo-fff-big {
   justify-content: flex-end;
 }
 .flex-justify-space-between{
-  -webkit-box-pack: justify;
+  f: justify;
   -ms-flex-pack: justify;
   -webkit-justify-content: space-between;
   justify-content: space-between;

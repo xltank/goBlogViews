@@ -3,9 +3,11 @@ import VueRouter from "vue-router";
 import App from './App.vue'
 import router from './router'
 import VueI18n from 'vue-i18n'
+import Service from '@lib/api'
 
 Vue.use(VueRouter)
 
+Vue.prototype.api = Service
 
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
@@ -14,7 +16,7 @@ import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
 
 Vue.use(VueI18n)
 
-let langSet = localStorage.getItem('langSet') || 'zh-cn';
+let langSet = localStorage.getItem('langSet') || 'en';
 const i18n = new VueI18n({
   locale: langSet,
   messages: {

@@ -1,14 +1,16 @@
 import Router from 'vue-router';
 
+import Signup from "@/components/Signup"
 import Login from "@/components/Login";
 import Home from "@/components/Home";
 import HelloWorld from "@/components/HelloWorld";
 
 
 const routes = [
-  {path: '/login', component: Login},
-  {path: '/', component: Home},
-  {path: '/hello/:name', component: HelloWorld}
+  {path: '/signup', component: Signup, name: "signup"},
+  {path: '/login', component: Login, name: "login"},
+  {path: '/', component: Home, name: "home"},
+  {path: '/hello/:name', component: HelloWorld, name: "hello"}
 ]
 
 const router = new Router({
@@ -17,7 +19,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) =>{
-  console.log(to, from)
+  console.log(to.fullPath, from.fullPath)
   return next()
 })
 
