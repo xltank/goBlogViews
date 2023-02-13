@@ -1,26 +1,27 @@
-import Router from 'vue-router';
-
-import Signup from "@/components/Signup"
-import Login from "@/components/Login";
-import Home from "@/components/Home";
-import HelloWorld from "@/components/HelloWorld";
+import {createRouter, createWebHistory} from "vue-router";
 
 
 const routes = [
-  {path: '/signup', component: Signup, name: "signup"},
-  {path: '/login', component: Login, name: "login"},
-  {path: '/', component: Home, name: "home"},
-  {path: '/hello/:name', component: HelloWorld, name: "hello"}
+  {
+    path: "/login",
+    name: "login",
+    component: () => import("../components/Login.vue"),
+  },
+  {
+    path: "/",
+    name: "home",
+    component: () => import("../components/Home.vue"),
+    children: [
+      {
+        path: "overview",
+        name: "overview",
+        component: () => import("../components/OverView.vue")
+      },
+    ]
+  }
 ]
 
-const router = new Router({
-  mode: 'history',
+export default createRouter({
+  history: createWebHistory(),
   routes
 })
-
-router.beforeEach((to, from, next) =>{
-  console.log(to.fullPath, from.fullPath)
-  return next()
-})
-
-export default router

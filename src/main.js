@@ -1,35 +1,40 @@
-import Vue from 'vue'
-import VueRouter from "vue-router";
+import {createApp} from 'vue'
 import App from './App.vue'
-import router from './router'
-import VueI18n from 'vue-i18n'
-import Service from '@lib/api'
+import router from "./router";
+import {createPinia} from "pinia";
 
-Vue.use(VueRouter)
+import "ant-design-vue/dist/antd.less"
+import "@/assets/style/common.less";
 
-Vue.prototype.api = Service
+import moment from "moment";
+moment.suppressDeprecationWarnings = true;
 
-import Element from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css';
-import enLocale from 'element-ui/lib/locale/lang/en'
-import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
+import svgIcon from './components/SvgIcon.vue'
 
-Vue.use(VueI18n)
 
-let langSet = localStorage.getItem('langSet') || 'en';
-const i18n = new VueI18n({
-  locale: langSet,
-  messages: {
-    zh: Object.assign(require("./assets/lang/zh"), zhLocale),
-    en: Object.assign(require("./assets/lang/en"), enLocale),
+const LOGIN = "login";
+const HOME = "home";
+const app = createApp(App);
+
+app.use(router);
+app.use(createPinia());
+app.component('svg-icon', svgIcon);
+
+import mavonEditor from 'mavon-editor'
+app.use(mavonEditor)
+
+import {useStore} from "@/store/users";
+const userStore = useStore();
+
+router.beforeEach((to, from, next) => {
+  // console.log(to.name, from.name, userStore.user)
+  if (!userStore.user || Object.keys(userStore.user).length === 0) {
+    to.name === LOGIN ? next() : next({name: LOGIN});
+  } else {
+    if(to.name === HOME)
+      return next({name: 'overview'});
+    next();
   }
 })
-Vue.use(Element, {i18n: (key, value) => i18n.t(key, value)})
 
-Vue.config.productionTip = false
-
-new Vue({
-  router,
-  i18n,
-  render: h => h(App),
-}).$mount('#app');
+app.mount('#app');

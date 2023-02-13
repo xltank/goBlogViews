@@ -1,24 +1,10 @@
-# test1
+# LINE FRIENDS 项目
 
-## Project setup
-```
-yarn install
-```
+## 说明
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+## 配置
 
-### Compiles and minifies for production
-```
-yarn build
-```
+环境变量的配置
 
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+| 变量  | 说明 | 备注                              |
+|-----|----|---------------------------------|
