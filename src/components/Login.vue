@@ -6,19 +6,13 @@ a-layout
         .logo
       .title XXXX
   a-layout-content.content
-    a-form.form(:model="userStore.form")
-      a-form-item
-        template(#label)
-          SvgIcon.icon(name="login-user")
-          span.label 邮箱
-        a-input.input(v-model:value="userStore.form.email")
-      a-form-item
-        template(#label)
-          SvgIcon.icon(name="login-pass")
-          span.label 密码
-        a-input.input(v-model:value="userStore.form.password" type="password" @keyup.enter="onSubmit")
+    a-form.form(:model="userStore.form" :label-col="labelCol")
+      a-form-item(label="邮箱")
+        a-input.input(v-model:value="userStore._form.email")
+      a-form-item(label="密码")
+        a-input.input(v-model:value="userStore._form.password" type="password" @keyup.enter="onSubmit")
       a-form-item(:wrapper-col="{ span: 14, offset: 4 }")
-        a-button.submit(@click="onSubmit" :disabled="!valid") 登录
+        a-button.submit(@click="onSubmit") 登录
 </template>
 
 <script setup>
@@ -34,10 +28,14 @@ const route = useRoute();
 
 const userStore = useUserStore();
 
+const labelCol = ref({ style: { width: '50px' } })
+
 const onSubmit = async function() {
   try {
     let r = await userStore.login();
-    await router.push({name: 'daily'})
+    localStorage.setItem("user", JSON.stringify(r.data))
+    userStore._user = r.data
+    await router.push({name: 'overview'})
   } catch (e) {
     console.log(e);
   }

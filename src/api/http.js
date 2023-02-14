@@ -18,7 +18,7 @@ instance.interceptors.response.use(resp => {
   let code = err.response?.status;
   if (code === 403) {
     //没有权限，回到登录页面
-    window.location.href = "/";
+    window.location.href = "/login";
   }
   return Promise.reject(err);
 })

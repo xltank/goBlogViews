@@ -6,9 +6,6 @@ import {createPinia} from "pinia";
 import "ant-design-vue/dist/antd.less"
 import "@/assets/style/common.less";
 
-import moment from "moment";
-moment.suppressDeprecationWarnings = true;
-
 import svgIcon from './components/SvgIcon.vue'
 
 
@@ -26,7 +23,7 @@ import {useUserStore} from "/src/store/users";
 const userStore = useUserStore();
 
 router.beforeEach((to, from, next) => {
-  // console.log(to.name, from.name, userStore.user)
+  console.log(to.name, from.name, userStore.user)
   if (!userStore.user || Object.keys(userStore.user).length === 0) {
     to.name === LOGIN || to.name === SIGNUP ? next() : next({name: LOGIN});
   } else {

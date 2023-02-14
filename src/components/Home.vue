@@ -10,14 +10,14 @@ a-layout
           theme="light"
           mode="horizontal"
           @select="onSelect")
-          a-menu-item(key="overview") 舆情大览
+          a-menu-item(key="overview") Main
       .user-info
-        .helpCenter(@click="toHelpCenter")
-          SvgIcon.icon(name="helpCenter")
-          | 帮助中心
+        //.helpCenter(@click="toHelpCenter")
+        //  SvgIcon.icon(name="helpCenter")
+        //  | 帮助中心
         .info
           SvgIcon.icon(name="user-info")
-          | Hi, {{userStore.userInfo.nickname}}
+          | Hi, {{userStore.user.email}}
         .logout(@click="userStore.logout")
           SvgIcon.icon(name="logout")
           | Logout
@@ -112,15 +112,16 @@ function toHelpCenter() {
     }
 
     .logo-part {
-      width: 256px;
-      height: @header-height;
-      //background: url("../assets/svg/logo-bg.svg") no-repeat center;
+      //width: 256px;
+      //height: @header-height;
+      //background: url("../assets/svg/vite.svg") no-repeat center;
       .logo {
-        width: 200px;
+        margin-left: 10px;
+        width: 42px;
         height: @header-height;
         line-height: @header-height;
-        float: left;
-        //background: url("../assets/svg/logo.svg") no-repeat center;
+        //float: left;
+        background: url("../assets/svg/vite.svg") no-repeat center;
       }
     }
 

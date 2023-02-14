@@ -38,11 +38,10 @@ const onSubmit = async function() {
   if(pass.value !== pass1.value)
     return message.error("您两次输入的密码不一致")
 
-  userStore.form.password = pass.value
+  userStore._form.password = pass.value
 
   try {
     let r = await userStore.signUp();
-    console.log(r)
     await router.push({name: 'overview'})
   } catch (e) {
     console.log(e);
@@ -50,7 +49,7 @@ const onSubmit = async function() {
 }
 
 const valid = computed(()=>{
-  userStore.form.name = (userStore.form.name || '').trim()
+  userStore._form.name = (userStore.form.name || '').trim()
   return userStore.form.name && userStore.form.password;
 })
 

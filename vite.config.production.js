@@ -10,7 +10,7 @@ import {resolve} from "path";
 import visualizer from "rollup-plugin-visualizer";
 import svgLoader from 'vite-svg-loader';
 import { svgBuilder } from './src/plugins/svgBuilder';
-import moment from "moment";
+import dayjs from "dayjs";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -43,7 +43,7 @@ export default defineConfig({
         manualChunks: {
           vue: ["vue"],
           lodash: ["lodash"],
-          moment: ["moment"],
+          dayjs: ["dayjs"],
           icons: ["@ant-design/icons-vue"]
         }
       }

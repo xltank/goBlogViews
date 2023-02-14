@@ -1,14 +1,13 @@
 <template lang="pug">
 a-layout.main
   a-layout-content
-    .content
+    .content | Main Page
 </template>
 
 <script setup>
 
 import { onMounted, ref, computed, watch } from "vue";
 import _ from "lodash"
-import moment from "moment"
 
 const onSearch = async () => {
 

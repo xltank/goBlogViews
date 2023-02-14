@@ -20,19 +20,22 @@ gwIDAQAB
 
 
 const state = () => ({
-  form: {
+  _form: {
     // name: "xuli",
     // password: "88888888",
     email: "test@my.com",
-    password: "",
+    password: "test@123",
   },
-  userInfo: null
+  _user: null
 });
 
 const getters = {
   user(state) {
-    this.loadUserFromCookie();
-    return state.userInfo
+    // this.loadUserFromCookie();
+    return state._user
+  },
+  form(state) {
+    return state._form
   }
 }
 
@@ -40,9 +43,14 @@ const actions = {
   async signUp() {
     const encrypted = this.encrypt(this.form.password)
     let r = await userApi.signUp({email: this.form.email, password: encrypted})
-    // let r = await userApi.signUp(2)
-    // this.loadUserFromCookie();
     console.log('signup', r)
+    return r;
+  },
+
+  async login() {
+    const encrypted = this.encrypt(this.form.password)
+    let r = await userApi.login({email: this.form.email, password: encrypted})
+    console.log('login', r)
     return r;
   },
 

@@ -1,7 +1,7 @@
 import {defineStore} from "pinia";
 import configApi from "@/api/config";
 import {cloneDeep} from "lodash";
-import moment from "moment";
+import dayjs from "dayjs";
 
 const DEFAULT_CONFIG = {
   risk_level: "",
@@ -37,7 +37,7 @@ const getters = {
     }
     let {user = {}, timestamp} = state._data;
     let {nickname} = user;
-    return `${nickname} 更新于 ${moment(timestamp).format("YY/MM/DD HH:mm")}`;
+    return `${nickname} 更新于 ${dayjs(timestamp).format("YY/MM/DD HH:mm")}`;
   }
 }
 
