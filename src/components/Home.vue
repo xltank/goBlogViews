@@ -29,14 +29,14 @@ a-layout
 import {ref} from "vue";
 import {useRouter, useRoute} from "vue-router";
 import {cloneDeep} from "lodash";
-import {useStore} from "@/store/users";
+import {useUserStore} from "@/store/users";
 import SvgIcon from "@/components/SvgIcon.vue";
 
 
 const router = useRouter();
 const route = useRoute();
 
-const userStore = useStore();
+const userStore = useUserStore();
 
 // const menus = [
 //   {
@@ -59,8 +59,8 @@ function onSelect({key: name}) {
 }
 
 function toHelpCenter() {
-  router.push({ name: 'helpCenter' });
-  pageName.value = [];
+  // router.push({ name: 'helpCenter' });
+  // pageName.value = [];
 }
 
 </script>
@@ -84,7 +84,6 @@ function toHelpCenter() {
       :deep(.ant-menu) {
         background: none;
         line-height: @header-height;
-        font-family: Line-en-bold, Line-bold;
         .ant-menu-horizontal {
           background-color: @color-grey;
           color: @color-green-dark;

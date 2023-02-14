@@ -6,19 +6,15 @@ a-layout
         .logo
       .title XXXX
   a-layout-content.content
-    a-form.form(:model="userStore.form")
-      a-form-item
-        template(#label)
-          SvgIcon.icon(name="login-user")
-          span.label 邮箱
+    a-form.form(:model="userStore.form" :label-col="labelCol")
+      a-form-item(label="邮箱")
         a-input.input(v-model:value="userStore.form.email")
-      a-form-item
-        template(#label)
-          SvgIcon.icon(name="login-pass")
-          span.label 密码
-        a-input.input(v-model:value="userStore.form.password" type="password" @keyup.enter="onSubmit")
+      a-form-item(label="密码")
+        a-input.input(v-model:value="pass" type="password")
+      a-form-item(label="确认密码")
+        a-input.input(v-model:value="pass1" type="password" @keyup.enter="onSubmit")
       a-form-item(:wrapper-col="{ span: 14, offset: 4 }")
-        a-button.submit(@click="onSubmit" :disabled="!valid") 登录
+        a-button.submit(@click="onSubmit") 注册
 </template>
 
 <script setup>
@@ -26,18 +22,28 @@ import {computed, ref} from "vue";
 import {useRouter, useRoute} from "vue-router";
 import {cloneDeep} from "lodash";
 import {useUserStore} from "/src/store/users";
-import SvgIcon from "/src/components/SvgIcon.vue";
 import {message} from "ant-design-vue";
+
+const pass = ref("test@123")
+const pass1 = ref("test@123")
 
 const router = useRouter();
 const route = useRoute();
 
+const labelCol = ref({ style: { width: '100px' } })
+
 const userStore = useUserStore();
 
 const onSubmit = async function() {
+  if(pass.value !== pass1.value)
+    return message.error("您两次输入的密码不一致")
+
+  userStore.form.password = pass.value
+
   try {
-    let r = await userStore.login();
-    await router.push({name: 'daily'})
+    let r = await userStore.signUp();
+    console.log(r)
+    await router.push({name: 'overview'})
   } catch (e) {
     console.log(e);
   }
@@ -96,24 +102,6 @@ const valid = computed(()=>{
   }
 }
 
-:deep(.ant-form-item-label) {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  label:after {
-    content: "";
-  }
-}
-
-.icon {
-  margin-right: 6px;
-}
-
-.label {
-  color: @color-green-dark;
-  line-height: 40px;
-}
-
 :deep(.ant-input) {
   font-size: 12px;
   width: 260px;
@@ -134,7 +122,7 @@ const valid = computed(()=>{
 }
 
 .submit {
-  margin-left: 63px;
+  margin-left: 85px;
 }
 
 .ant-btn {

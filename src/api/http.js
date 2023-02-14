@@ -7,10 +7,10 @@ const instance = axios.create({
 
 instance.interceptors.response.use(resp => {
   //格式化输出
-  let {data: {rtn, data, errMsg}} = resp;
+  let {data: {rtn, data, err}} = resp;
   if (rtn !== 0) {
-    message.error(errMsg);
-    return Promise.reject(errMsg);
+    message.error(err);
+    return Promise.reject(err);
   }
   return {data};
 }, err => {
