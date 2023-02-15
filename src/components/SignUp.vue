@@ -1,27 +1,28 @@
 <template lang="pug">
 a-layout
-  a-layout-header
-    a-row(type="flex" justify="start" align="top")
-      .logo-part
-        .logo
-      .title XXXX
   a-layout-content.content
-    a-form.form(:model="userStore.form" :label-col="labelCol")
-      a-form-item(label="邮箱")
-        a-input.input(v-model:value="userStore.form.email")
-      a-form-item(label="密码")
-        a-input.input(v-model:value="pass" type="password")
-      a-form-item(label="确认密码")
-        a-input.input(v-model:value="pass1" type="password" @keyup.enter="onSubmit")
-      a-form-item(:wrapper-col="{ span: 14, offset: 4 }")
-        a-button.submit(@click="onSubmit") 注册
+    .box
+      a-row.header
+        .logo-part
+        .title A Site
+      a-row.header
+        a-form.form(:model="userStore.form" :label-col="{span: 6}" :wrapper-col="{span: 18}")
+          a-form-item(label="邮箱")
+            a-input.input(v-model:value="userStore.form.email")
+          a-form-item(label="密码")
+            a-input.input(v-model:value="pass" type="password")
+          a-form-item(label="确认密码")
+            a-input.input(v-model:value="pass1" type="password" @keyup.enter="onSubmit")
+          a-form-item(:wrapper-col="{ offset: 9 }")
+            .submit-box
+              a-button.submit(@click="onSubmit") 注册
 </template>
 
 <script setup>
 import {computed, ref} from "vue";
 import {useRouter, useRoute} from "vue-router";
 import {cloneDeep} from "lodash";
-import {useUserStore} from "/src/store/users";
+import {useUserStore} from "/src/store/userStore";
 import {message} from "ant-design-vue";
 
 const pass = ref("test@123")
@@ -42,7 +43,7 @@ const onSubmit = async function() {
 
   try {
     let r = await userStore.signUp();
-    await router.push({name: 'overview'})
+    await router.push({name: 'main'})
   } catch (e) {
     console.log(e);
   }
@@ -59,51 +60,56 @@ const valid = computed(()=>{
 
 @import "../assets/style/variables";
 
-.ant-layout {
+.content {
   min-width: 1240px;
   background-color: @color-white;
+  //height: calc(100vh - 120px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  .ant-layout-header {
-    height: @header-height;
-    background-color: @color-grey;
-    border-radius: 8px;
-    padding: 0;
+  .box {
+    width: 600px;
+
+    .header {
+      display: flex;
+      justify-content: center;
+    }
 
     .logo-part {
       width: 32px;
-      height: @header-height;
-      //background: url("../assets/svg/vite.svg") no-repeat center;
-
-      .logo {
-        width: 32px;
-        height: @header-height;
-        line-height: @header-height;
-        float: left;
-        background: url("../assets/svg/vite.svg") no-repeat center;
-      }
+      height: 32px;
+      background: url("../assets/svg/vite.svg") no-repeat center;
+      margin-bottom: 50px;
     }
+
     .title {
+      margin-left: 10px;
       font-size: 28px;
       font-weight: bold;
-      color: @color-green-dark;
+      color: @color-main-dark;
       font-style: italic;
+    }
+
+    .form {
+      width: 300px;
     }
   }
 }
 
-.content {
-  height: calc(100vh - 120px);
+:deep(.ant-form-item-label) {
   display: flex;
   justify-content: center;
   align-items: center;
-  .form {
 
+  label:after {
+    content: "";
   }
 }
 
 :deep(.ant-input) {
   font-size: 12px;
-  width: 260px;
+  width: 230px;
   height: 40px;
   background-color: @color-grey;
   border: none;
@@ -111,31 +117,19 @@ const valid = computed(()=>{
 }
 
 .ant-input:hover {
-  border-color: @color-green;
+  border-color: @color-main;
   border-right-width: 1px !important;
 }
 
 .ant-input:focus {
-  border-color: @color-green;
+  border-color: @color-main;
   border-right-width: 1px !important;
 }
 
-.submit {
-  margin-left: 85px;
-}
-
-.ant-btn {
-  width: 160px;
-  height: 40px;
-  background-color: @color-green;
-  color: @color-white;
-  border-radius: 8px;
-  border:none;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.ant-btn:disabled {
-    background-color: @color-green-disabled;
+.submit-box {
+  display: flex;
+  justify-content: space-between;
+  .submit {
   }
+}
 </style>

@@ -8,7 +8,7 @@ export default {
     return http.post("/user/login", params);
   },
   logout() {
-    return http.get("/user/logout");
+    return http.put("/user/logout");
   },
   list() {
     return http.get("/user");

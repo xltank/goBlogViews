@@ -2,9 +2,9 @@ import http from "./http";
 
 export default {
   get() {
-    return http.get("/config");
+    return http.get("/pub");
   },
   update(data) {
-    return http.post("/config", data);
+    return http.post("/pub", data);
   }
 }

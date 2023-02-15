@@ -3,8 +3,8 @@ import {createRouter, createWebHistory} from "vue-router";
 
 const routes = [
   {
-    path: "/signup",
-    name: "signup",
+    path: "/signUp",
+    name: "signUp",
     component: () => import("../components/SignUp.vue"),
   },
   {
@@ -18,9 +18,14 @@ const routes = [
     component: () => import("../components/Home.vue"),
     children: [
       {
-        path: "overview",
-        name: "overview",
-        component: () => import("../components/OverView.vue")
+        path: "main",
+        name: "main",
+        component: () => import("../components/Main.vue")
+      },
+      {
+        path: "blogEdit",
+        name: "blogEdit",
+        component: () => import("../components/BlogEdit.vue")
       },
     ]
   }

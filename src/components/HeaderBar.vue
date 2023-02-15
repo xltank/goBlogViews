@@ -1,12 +1,27 @@
 <template lang="pug">
 a-layout
-  header-bar
-  a-layout
-    a-layout-sider.left-nav
-      left-nav
-    a-layout-content
-      router-view
-  //a-layout-footer.footer Footer
+  a-layout-header
+    a-row(type="flex" justify="space-between" align="top")
+      .logo-part
+        .logo
+        .name {{consts.SiteName}}
+      .nav-center
+        a-menu.menu(
+          v-model:selectedKeys="pageName"
+          theme="light"
+          mode="horizontal"
+          @select="onSelect")
+          a-menu-item(key="main") Main
+      .user-info
+        //.helpCenter(@click="toHelpCenter")
+        //  SvgIcon.icon(name="helpCenter")
+        //  | 帮助中心
+        .info
+          SvgIcon.icon(name="user-info")
+          | Hi, {{userStore.user.email}}
+        .logout(@click="userStore.logout")
+          SvgIcon.icon(name="logout")
+          | Logout
 </template>
 
 <script setup>
@@ -15,9 +30,7 @@ import {useRouter, useRoute} from "vue-router";
 import {cloneDeep} from "lodash";
 import {useUserStore} from "/src/store/userStore";
 import SvgIcon from "/src/components/SvgIcon.vue";
-import LeftNav from "./LeftNav.vue";
 import consts from "../utils/consts"
-import HeaderBar from "./HeaderBar.vue";
 
 
 const router = useRouter();
@@ -38,7 +51,7 @@ const userStore = useUserStore();
 //   }
 // ]
 
-const pageName = ref(["daily"]);
+const pageName = ref(["main"]);
 pageName.value = [route.name];
 
 function onSelect({key: name}) {

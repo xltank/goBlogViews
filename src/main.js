@@ -19,7 +19,7 @@ app.use(createPinia());
 app.component('svg-icon', svgIcon);
 
 
-import {useUserStore} from "/src/store/users";
+import {useUserStore} from "/src/store/userStore";
 const userStore = useUserStore();
 
 router.beforeEach((to, from, next) => {
@@ -28,7 +28,7 @@ router.beforeEach((to, from, next) => {
     to.name === LOGIN || to.name === SIGNUP ? next() : next({name: LOGIN});
   } else {
     if(to.name === HOME)
-      return next({name: 'overview'});
+      return next({name: 'main'});
     next();
   }
 })

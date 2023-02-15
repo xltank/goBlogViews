@@ -1,7 +1,7 @@
 import {defineStore} from "pinia"
 import {useCookies} from "vue3-cookies"
-import userApi from "/src/api/user"
-import configApi from "/src/api/config"
+import userApi from "/src/api/userApi"
+import configApi from "/src/api/pubApi"
 import router from "../router"
 import _ from "lodash"
 
@@ -31,7 +31,7 @@ const state = () => ({
 
 const getters = {
   user(state) {
-    // this.loadUserFromCookie();
+    this.loadUserFromLocal();
     return state._user
   },
   form(state) {
@@ -56,30 +56,16 @@ const actions = {
 
   async logout() {
     await userApi.logout();
+    localStorage.removeItem("user");
     await router.push({name: "login"})
-  }, //从 cookie 加载用户
-
-  loadUserFromCookie() {
-    const {cookies} = useCookies();
-    let cookie = cookies.get("user");
-    this.userInfo = this.cookieToJson(cookie);
   },
 
-  cookieToJson(cookie) {
-    if (!cookie) {
-      return null;
-    }
-    let match = /^s:(?<json>.+)\.\S+$/ig.exec(cookie);
-    if (!match) {
-      return null;
-    }
-    let {groups: {json = null}} = match;
-    return JSON.parse(json);
+  loadUserFromLocal() {
+    this._user = JSON.parse(localStorage.getItem("user")) || {};
   },
 
   encrypt(password) {
-    const pki = forge.pki;
-    const pk = pki.publicKeyFromPem(publicKey);
+    const pk = forge.pki.publicKeyFromPem(publicKey);
     let encrypted = pk.encrypt(password, 'RSA-OAEP', {
       md: forge.md.sha256.create()
     });

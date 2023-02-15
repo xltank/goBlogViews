@@ -8,7 +8,7 @@ router-view
 </script>
 
 <style lang="less">
-#app {
-
-}
+//#app {
+//
+//}
 </style>

@@ -1,7 +1,6 @@
 <template lang="pug">
-a-layout.main
-  a-layout-content
-    .content | Main Page
+.content
+  | left nav
 </template>
 
 <script setup>
@@ -9,17 +8,17 @@ a-layout.main
 import { onMounted, ref, computed, watch } from "vue";
 import _ from "lodash"
 
-const onSearch = async () => {
-
-}
 
 onMounted(()=> {
-  onSearch()
 })
 
 </script>
 
 <style lang="less" scoped>
+
+.content {
+  background: white;
+}
 
 .ant-row {
   margin-top: 20px;

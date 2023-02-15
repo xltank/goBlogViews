@@ -12,7 +12,7 @@ declare module 'vue' {
     AMenu: typeof import('ant-design-vue/es')['Menu']
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
     Home: typeof import('./components/Home.vue')['default']
-    OverView: typeof import('./components/OverView.vue')['default']
+    OverView: typeof import('./components/Main.vue')['default']
   }
 }
 
