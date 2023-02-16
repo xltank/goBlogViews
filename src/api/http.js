@@ -9,7 +9,10 @@ instance.interceptors.response.use(resp => {
   //格式化输出
   let {data: {rtn, data, err}} = resp;
   if (rtn !== 0) {
-    message.error(err);
+    console.error(err);
+    if(rtn === 403) {
+      window.location.href = "/login";
+    }
     return Promise.reject(err);
   }
   return {data};

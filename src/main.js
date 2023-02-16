@@ -23,7 +23,7 @@ import {useUserStore} from "/src/store/userStore";
 const userStore = useUserStore();
 
 router.beforeEach((to, from, next) => {
-  console.log(to.name, from.name, userStore.user)
+  // console.log(to.name, from.name, userStore.user)
   if (!userStore.user || Object.keys(userStore.user).length === 0) {
     to.name === LOGIN || to.name === SIGNUP ? next() : next({name: LOGIN});
   } else {

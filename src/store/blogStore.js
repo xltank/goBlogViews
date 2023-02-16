@@ -7,14 +7,21 @@ import blogApi from "../api/blogApi.js";
 
 
 const state = () => ({
-  _blog: {
-  },
+  _blog: {},
+  _list: [],
+  _total: 0,
 });
 
 const getters = {
   blog(state) {
     return state._blog
   },
+  list(state) {
+    return state._list
+  },
+  total(state) {
+    return state._total
+  }
 }
 
 const actions = {
@@ -25,8 +32,19 @@ const actions = {
 
   async getList(offset, limit) {
     let r = await blogApi.list(offset, limit)
+    this._list = r.data.list
+    this._total = r.data.total
     return r;
   },
+
+  newBlog(){
+    return {
+      title: "",
+      content: "",
+      authorId: 0,
+      tags: [],
+    }
+  }
 };
 
 

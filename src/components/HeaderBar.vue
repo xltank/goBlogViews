@@ -16,6 +16,7 @@ a-layout
         //.helpCenter(@click="toHelpCenter")
         //  SvgIcon.icon(name="helpCenter")
         //  | 帮助中心
+        .info(key="new" @click="router.push({name: 'blogEdit'})") New
         .info
           SvgIcon.icon(name="user-info")
           | Hi, {{userStore.user.email}}

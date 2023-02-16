@@ -27,6 +27,11 @@ const routes = [
         name: "blogEdit",
         component: () => import("../components/BlogEdit.vue")
       },
+      {
+        path: "blog",
+        name: "blog",
+        component: () => import("../components/Blog.vue")
+      },
     ]
   }
 ]
