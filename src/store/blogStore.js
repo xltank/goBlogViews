@@ -4,6 +4,7 @@ import _ from "lodash"
 
 import {message} from "ant-design-vue";
 import blogApi from "../api/blogApi.js";
+import dayjs from "dayjs";
 
 
 const state = () => ({
@@ -34,6 +35,9 @@ const actions = {
     let r = await blogApi.list(offset, limit)
     this._list = r.data.list
     this._total = r.data.total
+    this._list.forEach(item =>{
+      item.createdAtLabel = dayjs(item.createdAt).format("YYYY-MM-DD HH:mm:ss")
+    })
     return r;
   },
 

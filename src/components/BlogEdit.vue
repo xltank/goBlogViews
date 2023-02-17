@@ -8,7 +8,7 @@ a-layout.main
         a-textarea(v-model:value="blogStore._blog.content" :auto-size="{minRows: 20, maxRows: 50}")
       a-form-item(label="Tags")
         .tags
-          a-tag(v-for="t in tags") {{t}}
+          a-tag(v-for="t in tags" :closable="true" @close="onTagClose(t)") {{t}}
         a-input(@keyup.enter="addTag" v-model:value="tag")
       a-form-item(:wrapper-col="{offset: 12, span: 12}")
         a-button(type="primary" @click="onSubmit") Submit
@@ -32,11 +32,12 @@ const getBlog = async () => {
   let {id} = route.query
   console.log("blogEdit", id)
   if(id) {
-    let r = blogApi.getById(id)
+    let r = await blogApi.getById(id)
     blogStore._blog = r.data
   } else {
     blogStore._blog = blogStore.newBlog()
   }
+  tags.value = _.map(blogStore.blog.tags, 'content') || []
 }
 
 onMounted(()=> {
@@ -48,9 +49,13 @@ const tags = ref([])
 
 const addTag = () =>{
   tags.value.push(tag.value)
+  tags.value = _.uniq(tags.value)
   tag.value = ""
 }
 
+const onTagClose = (t) => {
+  tags.value = _.reject(tags.value, tag => tag === t)
+}
 
 const onSubmit = async () =>{
   blogStore._blog.tags = tags.value.map(t => {
@@ -63,5 +68,9 @@ const onSubmit = async () =>{
 </script>
 
 <style lang="less" scoped>
+
+.main {
+  margin-top: 20px;
+}
 
 </style>

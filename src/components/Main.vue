@@ -4,21 +4,27 @@ a-layout.main
     a-list(item-layout="vertical" size="large" :pagination="pagination" :data-source="blogStore._list")
       template(#renderItem="{ item }")
         a-list-item(key="item.title")
+          a-list-item-meta // (:description="item.createdAtLabel")
+            template(#title)
+              a(@click="router.push({name: 'blog', query: {id: item.id}})") {{ item.title }}
+            template(#description)
+              .meta
+                span.time {{item.createdAtLabel}}
+                a-tag(v-for="t in item.tags") 222
           template(#actions)
             span(v-for="{ type, text } in actions" :key="type")
               component(:is="type" style="margin-right: 8px")
               | {{ text }}
-          a-list-item-meta(:description="item.content")
-            template(#title)
-              a(@click="router.push({name: 'blog', query: {id: item.id}})") {{ item.title }}
-          div {{ item.content }}
+          template(#extra)
+            EditOutlined(@click="router.push({name: 'blogEdit', query: {id: item.id}})")
+          div {{ item.content.substring(0, 30) }}
 </template>
 
 <script setup>
 
 import { onMounted, ref, computed, watch } from "vue";
 import {useBlogStore} from "../store/blogStore.js";
-import {StarOutlined, LikeOutlined, MessageOutlined} from "@ant-design/icons-vue"
+import {StarOutlined, LikeOutlined, MessageOutlined, EditOutlined} from "@ant-design/icons-vue"
 import {useRouter} from "vue-router";
 
 const router = useRouter()
@@ -29,7 +35,7 @@ const actions = [
   { type: MessageOutlined, text: '5' },
 ];
 
-const pageSize = 2
+const pageSize = 10
 
 const pagination = ref({
   onChange: (page) => {
@@ -64,6 +70,14 @@ onMounted(async ()=> {
     margin-left: 20px;
     cursor: pointer;
   }
+}
+
+.tags {
+  margin-left: 20px;
+}
+
+.time {
+  margin-right: 20px;
 }
 
 </style>
